@@ -1,5 +1,11 @@
 global outb             ; make the label outb visible outside this file
 global inb              ; reads the contents of an I/O port
+global lgdt_func        ; load gd table
+
+lgdt_func:
+    mov eax, [esp + 4] ; mov input into eax
+    lgdt [eax]
+    ret
 
   ; outb - send a byte to an I/O port
   ; stack: [esp + 8] the data byte

@@ -95,7 +95,7 @@ void write_string_cell(unsigned short location, const char* stringtowrite, unsig
     unsigned int bytes_until_newline = 1;
     for(unsigned int i = 0; i < strlen(stringtowrite); i++) {
         if(stringtowrite[i] == '\n'){
-            // if newline char has been reached, increase position by size of screen - current poistion * 2 [note: shouldn't you just do 160 - bytes_until_newline + 1?]
+            // if newline char has been reached, increase position by size of screen - current poistion * 2 
             location += 160 - bytes_until_newline * 2;
             bytes_until_newline = 1;
         }

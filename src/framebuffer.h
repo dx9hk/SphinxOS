@@ -51,7 +51,7 @@ void write_cell(unsigned int index,unsigned short location, char character, unsi
 
 unsigned int strlen(const char *s)
 {
-    int ret = 0;
+    unsigned int ret = 0;
     while(s[ret] != '\0'){
         ret++;
     }
@@ -87,6 +87,9 @@ void fb_move_cursor(unsigned short pos)
 @param4 -> text_color -> colour for text
 
 */
+
+
+
 
 void write_string_cell(unsigned short location, const char* stringtowrite, unsigned char background, unsigned char text_color){
     unsigned int bytes_until_newline = 1;

@@ -19,12 +19,11 @@
  */
 #define SERIAL_LINE_ENABLE_DLAB           0x80
 
-
 void serial_configure_baud_rate(unsigned short com, unsigned short divisor);
 
 void serial_configure_line(unsigned short com);
 
-void serial_write(char *buffer, unsigned int len);
+void serial_write(const char *buffer);
 
 int serial_is_transmit_fifo_empty(unsigned int com);
 

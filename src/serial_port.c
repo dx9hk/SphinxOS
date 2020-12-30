@@ -1,7 +1,8 @@
+#ifndef serial_portc
+#define serial_portc
+
 #include "io.h"
 #include "serial_port.h"
-
-
 
 /* Sets the speed of the serial port, default speed fot port is 
  * 11520 bits. 
@@ -14,8 +15,10 @@
  * @param divisor to help set the speed
  */
 void serial_configure_baud_rate(unsigned short com, unsigned short divisor) {
-    outb(SERIAL_LINE_COMMAND_PORT(com), SERIAL_LINE_ENABLE_DLAB);
-    outb(SERIAL_DATA_PORT(com), (divisor >> 8) & 0x00FF);
+   //configure line to recognise that we can only send 8bits at a time (0x80)
+    outb(SERIAL_LINE_COMMAND_PORT(com),SERIAL_LINE_ENABLE_DLAB); 
+    //configure data results to be divided by param divisor for the speed
+    outb(SERIAL_DATA_PORT(com),(divisor >> 8) & 0x00FF);
     outb(SERIAL_DATA_PORT(com), divisor & 0x00FF);
 }
 
@@ -64,13 +67,16 @@ int initiate_serial() {
 */
 
 
-void serial_write(char *buffer, unsigned int len) {
+void serial_write(const char *buffer) {
   serial_configure_baud_rate(SERIAL_COM1_BASE, 0x03);
   serial_configure_line(SERIAL_COM1_BASE);
 
-  unsigned int i = 0;
-  for(; i < len; i++) {
-    while (!serial_is_transmit_fifo_empty(SERIAL_COM1_BASE))
-    outb(SERIAL_DATA_PORT(SERIAL_COM1_BASE), buffer[i]);
+  for(unsigned int o = 0; o < __builtin_strlen(buffer); o++) {
+    if(serial_is_transmit_fifo_empty(SERIAL_COM1_BASE)){
+      outb(SERIAL_DATA_PORT(SERIAL_COM1_BASE), buffer[o]);
+    }
   }
 }
+
+
+#endif

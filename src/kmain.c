@@ -23,9 +23,9 @@
 void kmain(void) {
     write_string_cell(
         1280,
-        "Testing our newline character\nlooks like it works!\nthis\nis\n\nscuffed",
+        "Testing our newline character\nLooks like it works!",
         Black,White);
 
-    serial_write("Testing",7);
+    serial_write("Testing output, \nserial_write has been called!");
 
 }

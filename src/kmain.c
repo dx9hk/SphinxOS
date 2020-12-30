@@ -22,6 +22,10 @@
 #include "printf.h"
 #define NULL 0
 
+struct gdt{
+  unsigned int startAddr;
+  unsigned int size;
+}__attribute__((packed));
 
 void kmain(void) {
     
